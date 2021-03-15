@@ -15,14 +15,12 @@ class Fifteen(tk.Tk):
         self.game_frame = tk.Frame()
         self.game_frame.config(background="#121222")
         self.game_frame.grid(column=0, row=1)
-        self.tiles = []
         for i in range(4):
-            self.tiles.append([])
             for j in range(4):
                 if i == j == 3:
                     break
                 b = tk.Button(self.game_frame, text=f'{i * 4 + j + 1:2}',
-                              background="#242434", fg="#FFFFFF", font=("Courier", 10))
+                              background="#242434", fg="#FFFFFF", font=("Courier", 20))
 
                 def handler(b=b):
                     self.push_tile(b)
@@ -52,8 +50,17 @@ class Fifteen(tk.Tk):
             if int(b['text']) != info["row"] * 4 + info["column"] + 1:
                 break
         else:
-            print('Win')
-            self.shuffle()
+            root = tk.Tk()
+            root.config(background="#121222")
+
+            def dest():
+                root.destroy()
+                self.shuffle()
+            button = tk.Button(root, text="Hooray!", command=dest,
+                               background="#242434", fg="#FFFFFF", font=("Courier", 20))
+            root.columnconfigure(0, weight=1)
+            root.rowconfigure(0, weight=1)
+            button.grid()
 
     def shuffle(self):
         all_b = self.game_frame.children.values()
@@ -80,9 +87,9 @@ class Fifteen(tk.Tk):
         self.service_frame.config(background="#121222")
         self.service_frame.grid(column=0, row=0)
         self.new_b = tk.Button(self.service_frame, text='New', command=self.shuffle,
-                               background="#242434", fg="#FFFFFF", font=("Courier", 10))
+                               background="#242434", fg="#FFFFFF", font=("Courier", 15))
         self.exit_b = tk.Button(self.service_frame, text='Exit', command=self.quit,
-                                background="#242434", fg="#FFFFFF", font=("Courier", 10))
+                                background="#242434", fg="#FFFFFF", font=("Courier", 15))
         self.new_b.grid(column=0, row=0)
         self.exit_b.grid(column=1, row=0)
         self.service_frame.columnconfigure(0, weight=1)
