@@ -16,7 +16,6 @@ class InputLabel(tk.Label):
         self.bind('<Right>', self.right)
         self.bind('<FocusIn>', self.focus_in)
         self.bind('<FocusOut>', self.focus_out)
-
         self.cursor = tk.Frame(self, width=2, height=12, background="gray")
 
     def focus_in(self, *args):
@@ -46,7 +45,7 @@ class InputLabel(tk.Label):
             self.cursor.place(x=(pos - 1) * 8, y=4)
             self['text'] = self['text'][:pos - 1] + self['text'][pos:]
 
-    def home(self, key_event):  # doesn't work first click
+    def home(self, key_event):
         self.cursor.place(x=0, y=4)
 
     def end(self, key_event):
@@ -57,7 +56,6 @@ class InputLabel(tk.Label):
             pos = self.cursor.winfo_x() // 8
             self.cursor.place(x=(pos + 1) * 8, y=4)
             self['text'] = self['text'][:pos] + key_event.char + self['text'][pos:]
-            print(key_event.char)
 
 
 if __name__ == '__main__':
